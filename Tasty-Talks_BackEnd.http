@@ -1,0 +1,6 @@
+@Tasty_Talks_BackEnd_HostAddress = http://localhost:5141
+
+GET {{Tasty_Talks_BackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
