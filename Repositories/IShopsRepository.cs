@@ -6,5 +6,11 @@ namespace Tasty_Talks_BackEnd.Repositories
     {
         Task<Shops> CreateShopAsync(Shops shops);
         Task<List<Shops>> GetShopsAsync();
+
+        Task<Shops> GetShopByIdAsync(int id);
+
+        Task<Shops> UpdateShopAsync(int id, Shops shops);
+        
+        Task<Shops> DeleteShopAsync(int id);
     }
 }

@@ -42,7 +42,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         {
             var usersDomainModel = await usersRepository.GetUsersAsync();
 
-            if(usersDomainModel == null)
+            if (usersDomainModel == null)
             {
                 return NotFound();
             }
@@ -51,7 +51,69 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         }
 
-    }
 
-        
+        [HttpGet]
+        [Route("id")]
+
+        public async Task<IActionResult> GetUserById([FromQuery] int id)
+        {
+            var userDomainModel = await usersRepository.GetUserByIdAsync(id);
+
+            if (userDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<UsersDTO>(userDomainModel));
+        }
+
+
+        //Update User Function-------------
+
+        [HttpPut]
+        [Route("id")]
+
+        public async Task<IActionResult> UpdateUser([FromQuery] int id, [FromBody] UpdateUserDTO updateUserDTO)
+        {
+            var userDomainModel = mapper.Map<Users>(updateUserDTO);
+
+            userDomainModel = await usersRepository.UpdateUserAsync(id, userDomainModel);
+
+
+            if (userDomainModel == null)
+            {
+
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<UsersDTO>(userDomainModel));
+
+
+
+        }
+
+        //Delete User Function-------------
+
+        [HttpDelete]
+        [Route("id")]
+
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var userDomainModel = await usersRepository.DeleteUserAsync(id);
+
+            if (userDomainModel == null)
+            {
+
+                return NotFound();
+            }
+
+            return Ok();
+
+
+
+
+        }
+
+
+    }
 }

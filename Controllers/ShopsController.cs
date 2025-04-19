@@ -21,7 +21,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Create Shop Function
+        //Create Shop Function--------
 
         [HttpPost]
 
@@ -40,7 +40,7 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok();
         }
 
-        //Read Shop Function
+        //Read Shop Function----------
 
         [HttpGet]
 
@@ -56,6 +56,58 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok(mapper.Map<List<ShopsDTO>>(shopsDomainModel));
 
 
+        }
+
+        [HttpGet]
+        [Route("id")]
+
+        public async Task<IActionResult> GetShopsById(int id)
+        {
+            var shopDomainModel = await shopsRepository.GetShopByIdAsync(id);
+
+            if (shopDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<ShopsDTO>(shopDomainModel));
+        }
+
+        //Update Shop function-----------
+
+        [HttpPut]
+        [Route("id")]
+        public async Task<IActionResult> UpdateShop([FromQuery] int id , [FromBody] UpdateShopDTO updateShopDTO)
+        {
+            var shopDomainModel = mapper.Map<Shops>(updateShopDTO);
+
+            shopDomainModel = await shopsRepository.UpdateShopAsync(id, shopDomainModel);
+
+            if(shopDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<ShopsDTO>(shopDomainModel));
+
+        }
+
+
+        //Delete Shop Function------------
+
+        [HttpDelete]
+        [Route("id")]
+
+        public async Task<IActionResult> DeleteShop([FromQuery] int id)
+        {
+            var shopDomainModel = await shopsRepository.DeleteShopAsync(id);
+
+            if(shopDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 
