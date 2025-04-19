@@ -9,7 +9,9 @@ namespace Tasty_Talks_BackEnd.Mapping
         public AutoMapperProfile()
         {
             CreateMap<Shops, AddShopsDTO>().ReverseMap();
-            CreateMap<Users, AddUserDTO>().ReverseMap();   
+            CreateMap<Users, AddUserDTO>().ReverseMap();
+            CreateMap<Shops, ShopsDTO>().ReverseMap();
+            CreateMap<Users, UsersDTO>().ReverseMap();  
         }
     }
 }

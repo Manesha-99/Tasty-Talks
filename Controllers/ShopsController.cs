@@ -19,7 +19,9 @@ namespace Tasty_Talks_BackEnd.Controllers
             this.shopsRepository = shopsRepository;
             this.mapper = mapper;
         }
-        //Shop Create Function
+
+
+        //Create Shop Function
 
         [HttpPost]
 
@@ -29,7 +31,8 @@ namespace Tasty_Talks_BackEnd.Controllers
 
             shopsDomainModel = await shopsRepository.CreateShopAsync(shopsDomainModel);
 
-            if (shopsDomainModel == null) {
+            if (shopsDomainModel == null)
+            {
 
                 return BadRequest();
             }
@@ -37,6 +40,23 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok();
         }
 
+        //Read Shop Function
 
+        [HttpGet]
+
+        public async Task<IActionResult> GetShop()
+        {
+            var shopsDomainModel = await shopsRepository.GetShopsAsync();
+
+            if (shopsDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<List<ShopsDTO>>(shopsDomainModel));
+
+
+        }
     }
+
 }

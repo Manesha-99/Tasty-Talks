@@ -5,5 +5,6 @@ namespace Tasty_Talks_BackEnd.Repositories
     public interface IShopsRepository
     {
         Task<Shops> CreateShopAsync(Shops shops);
+        Task<List<Shops>> GetShopsAsync();
     }
 }
