@@ -6,5 +6,10 @@
         public string Category { get; set; }
 
         public string ImageURL { get; set; }
+
+
+        // Collection navigation property
+        public ICollection<Foods> Foods { get; set; }
+        
     }
 }

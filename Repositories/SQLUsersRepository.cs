@@ -73,7 +73,6 @@ namespace Tasty_Talks_BackEnd.Repositories
             }
 
             existingUser.Email = users.Email;
-            existingUser.Address = users.Address;
             existingUser.Name = users.Name;
             existingUser.Password = users.Password;
             existingUser.Phone = users.Phone;

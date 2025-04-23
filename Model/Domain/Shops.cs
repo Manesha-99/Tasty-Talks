@@ -1,9 +1,14 @@
-﻿namespace Tasty_Talks_BackEnd.Model.Domian
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Tasty_Talks_BackEnd.Model.Domian
 {
     public class Shops
     {
+        [Key]
         public int Id { get; set; }
 
+        [ForeignKey("Users")]
         public int UsersId { get; set; }
         public string ShopName { get; set; }
 
@@ -24,5 +29,9 @@
         //Navigation Properties
 
         public Users Users { get; set; }
+
+        // Collection navigation property
+        public ICollection<Foods> Foods { get; set; }
+        
     }
 }

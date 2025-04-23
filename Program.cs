@@ -21,6 +21,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IShopsRepository, SQLShopsRepository>();
 builder.Services.AddScoped<IUsersRepository, SQLUsersRepository>();
 builder.Services.AddScoped<IFoodCategoryRepository, SQLFoodCategoryRepository>();
+builder.Services.AddScoped<IFoodRepository, SQLFoodRepository>();
 
 var app = builder.Build();
 

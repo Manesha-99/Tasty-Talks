@@ -14,6 +14,7 @@ namespace Tasty_Talks_BackEnd.Data
         public DbSet<Shops> Shops { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<FoodCategory> FoodCategories { get; set; }
+        public DbSet<Foods> Foods { get; set; }
             
         }
     }
