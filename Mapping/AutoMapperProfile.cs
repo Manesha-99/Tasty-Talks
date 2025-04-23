@@ -14,6 +14,9 @@ namespace Tasty_Talks_BackEnd.Mapping
             CreateMap<Users, UsersDTO>().ReverseMap();
             CreateMap<Shops, UpdateShopDTO>().ReverseMap();
             CreateMap<Users, UpdateUserDTO>().ReverseMap();
+            CreateMap<FoodCategory, AddFoodCategoryDTO>().ReverseMap();
+            CreateMap<FoodCategory, FoodCategoryDTO>().ReverseMap();
+            CreateMap<FoodCategory, UpdateFoodCategoryDTO>().ReverseMap();
         }
     }
 }

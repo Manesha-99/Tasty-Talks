@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tasty_Talks_BackEnd.Data;
 
@@ -11,9 +12,11 @@ using Tasty_Talks_BackEnd.Data;
 namespace Tasty_Talks_BackEnd.Migrations
 {
     [DbContext(typeof(TastyTalksDbContext))]
-    partial class TastyTalksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423073041_Added Food Category")]
+    partial class AddedFoodCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
