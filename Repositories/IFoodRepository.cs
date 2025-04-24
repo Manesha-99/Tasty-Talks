@@ -6,7 +6,8 @@ namespace Tasty_Talks_BackEnd.Repositories
     {
         Task<Food> CreateFoodAsync(Food foods);
 
-        Task<List<Food>> GetAllFoodsAsync();
+        Task<List<Food>> GetAllFoodsAsync(string? filterOn=null, string? filterQuery=null, string? sortBy=null, bool isAscending=true,
+            int pageNumber=1, int pageSize=10);
 
         Task<Food> GetFoodByIdAsync(int id);
 

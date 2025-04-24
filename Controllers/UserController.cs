@@ -21,7 +21,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Create User Function-------
+        //Create User Function--------------------------------------------------
 
         [HttpPost]
 
@@ -35,7 +35,8 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Read User Function------
+        //Read User Function---------------------------------------------------
+
         [HttpGet]
 
         public async Task<IActionResult> GetUsers()
@@ -68,7 +69,8 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Update User Function-------------
+        //Update User Function------------------------------------------------
+
 
         [HttpPut]
         [Route("id")]
@@ -92,7 +94,8 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         }
 
-        //Delete User Function-------------
+
+        //Delete User Function-----------------------------------------------
 
         [HttpDelete]
         [Route("id")]

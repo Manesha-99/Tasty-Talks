@@ -20,7 +20,7 @@ namespace Tasty_Talks_BackEnd.Controllers
             this.mapper = mapper;
         }
 
-        //Create Food Category Function---------------
+        //Create Food Category Function-----------------------------------------------
 
         [HttpPost]
 
@@ -38,12 +38,15 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok(mapper.Map<FoodCategoryDTO>(foodCategoryDomainModel));
         }
 
-        //Read Food Category Function-------------------
+
+        //Read Food Category Function-------------------------------------------------
 
         [HttpGet]
-        public async Task<IActionResult> GetFoodCategoty()
+        public async Task<IActionResult> GetFoodCategoty([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool isAscending=true,
+            [FromQuery] int pageNumber=1, [FromQuery] int pageSize=10)
         {
-            var foodCategoryDomainModel = await foodCategory.GetAllAsync();
+            var foodCategoryDomainModel = await foodCategory.GetAllAsync(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
 
             if (foodCategoryDomainModel == null) {
                 return NotFound();
@@ -69,7 +72,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Update Food Category-----------------------
+        //Update Food Category--------------------------------------------------------
 
         [HttpPut]
         [Route("id")]
@@ -87,7 +90,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Delete FoodCategory------------------
+        //Delete FoodCategory--------------------------------------------------------
 
         [HttpDelete]
         [Route("id")]

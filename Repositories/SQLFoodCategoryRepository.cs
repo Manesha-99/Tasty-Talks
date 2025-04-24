@@ -14,7 +14,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Create FoodCategory Function----
+        //Create FoodCategory Function--------------------------------------------------
         public async Task<FoodCategory> CreateAsync(FoodCategory foodCategory)
         {
             await tastyTalksDbContext.FoodCategory.AddAsync(foodCategory);
@@ -23,7 +23,8 @@ namespace Tasty_Talks_BackEnd.Repositories
             return foodCategory;
         }
 
-        //Delete FoodCategory Function----
+
+        //Delete FoodCategory Function-------------------------------------------------
         public async Task<FoodCategory> DeleteAsync(int id)
         {
             var food = await tastyTalksDbContext.FoodCategory.FirstOrDefaultAsync(x => x.Id == id);
@@ -39,7 +40,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Read All FoodCategory Function----
+        //Read All FoodCategory Function-------------------------------------------------
 
         public async Task<FoodCategory> GeByIdAsync(int id)
         {
@@ -54,20 +55,42 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
         
-        public async Task<List<FoodCategory>> GetAllAsync()
+        public async Task<List<FoodCategory>> GetAllAsync(string? filterOn = null, string? filterQuery = null, 
+            string? sortBy = null, bool isAscending = true,
+            int pageNumber = 1, int pageSize = 10)
         {
-            var foods = await tastyTalksDbContext.FoodCategory.ToListAsync();
+            var foods = tastyTalksDbContext.FoodCategory.AsQueryable();
 
-            if(foods == null)
+            //Filtering----
+
+            if(string.IsNullOrWhiteSpace(filterQuery)==false && string.IsNullOrWhiteSpace(filterOn) == false)
             {
-                return null;
+                if(filterOn.Equals("Category", StringComparison.OrdinalIgnoreCase))
+                {
+                    foods = foods.Where(x => x.Category.Contains(filterQuery));
+                }
             }
 
-            return foods;
+            //Sorting----
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (sortBy.Equals("Category", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    foods = isAscending ? foods.OrderBy(x => x.Category) : foods.OrderByDescending(x => x.Category);
+                }
+            }
+
+            //Pagination----
+
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await foods.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
 
-        //Update FoodCategory Function----
+        //Update FoodCategory Function---------------------------------------------------
         public async Task<FoodCategory> UpdateAsync(int id, FoodCategory foodCategory)
         {
             var existingFood = await tastyTalksDbContext.FoodCategory.FirstOrDefaultAsync(x=>x.Id==id);

@@ -21,7 +21,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Create Shop Function--------
+        //Create Shop Function----------------------------------------
 
         [HttpPost]
 
@@ -40,13 +40,15 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok();
         }
 
-        //Read Shop Function----------
+        //Read Shop Function-----------------------------------------
 
         [HttpGet]
 
-        public async Task<IActionResult> GetShop()
+        public async Task<IActionResult> GetShop([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool isAscending=true, 
+            [FromQuery] int pageNumber=1, [FromQuery] int pageSize=10)
         {
-            var shopsDomainModel = await shopsRepository.GetShopsAsync();
+            var shopsDomainModel = await shopsRepository.GetShopsAsync(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
 
             if (shopsDomainModel == null)
             {
@@ -73,7 +75,7 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok(mapper.Map<ShopsDTO>(shopDomainModel));
         }
 
-        //Update Shop function-----------
+        //Update Shop function---------------------------------------
 
         [HttpPut]
         [Route("id")]
@@ -93,7 +95,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         }
 
 
-        //Delete Shop Function------------
+        //Delete Shop Function---------------------------------------
 
         [HttpDelete]
         [Route("id")]

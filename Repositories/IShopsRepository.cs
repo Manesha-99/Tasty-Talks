@@ -5,7 +5,8 @@ namespace Tasty_Talks_BackEnd.Repositories
     public interface IShopsRepository
     {
         Task<Shop> CreateShopAsync(Shop shops);
-        Task<List<Shop>> GetShopsAsync();
+        Task<List<Shop>> GetShopsAsync(string? filterOn=null, string? filterQuery=null, string? sortBy=null, bool isAscending=true,
+            int pageNumber = 1, int pageSize = 10);
 
         Task<Shop> GetShopByIdAsync(int id);
 

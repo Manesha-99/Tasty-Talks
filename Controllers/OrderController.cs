@@ -20,7 +20,7 @@ namespace Tasty_Talks_BackEnd.Controllers
             this.mapper = mapper;
         }
 
-        //Order Create Function-----
+        //Order Create Function--------------------------
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] AddOrderDTO addOrderDTO)
@@ -35,13 +35,15 @@ namespace Tasty_Talks_BackEnd.Controllers
             return Ok(mapper.Map<OrderDTO>(orderDomainModel));
         }
 
-        //Order Get Function----
+
+        //Order Get Function-----------------------------
 
         [HttpGet]
 
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery ,[FromQuery] string? sortBy, [FromQuery] bool isAscending=true, 
+            [FromQuery] int pageNumber=1, [FromQuery] int pageSize=10)
         {
-            var orderDomainModel = await orderRepository.GetAllAsync();
+            var orderDomainModel = await orderRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending, pageNumber, pageSize);
 
             if (orderDomainModel == null)
             {

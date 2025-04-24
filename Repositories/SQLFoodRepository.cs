@@ -14,7 +14,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Create Food Function-----
+        //Create Food Function------------------------------------------------------
         public async Task<Food> CreateFoodAsync(Food foods)
         {
             var food = await tastyTalksDbContext.Food.AddAsync(foods);
@@ -25,7 +25,7 @@ namespace Tasty_Talks_BackEnd.Repositories
 
         }
 
-        //Delete Food Function----
+        //Delete Food Function------------------------------------------------------
         public async Task<Food> DeleteFoodAsync(int id)
         {
             var food = await tastyTalksDbContext.Food.FirstOrDefaultAsync(x => x.Id == id);
@@ -41,12 +41,37 @@ namespace Tasty_Talks_BackEnd.Repositories
 
         }
 
-        //Read Food Function-----
-        public async Task<List<Food>> GetAllFoodsAsync()
+        //Read Food Function--------------------------------------------------------
+        public async Task<List<Food>> GetAllFoodsAsync(string? filterOn, string? filterQuery, string? sortBy, bool isAscending = true,
+            int pageNumber = 1, int pageSize = 10)
         {
-            var foods = await tastyTalksDbContext.Food.ToListAsync();
+            var foods = tastyTalksDbContext.Food.Include("FoodCategory").AsQueryable();
 
-            return foods;
+            //Filtering----
+
+            if(string.IsNullOrWhiteSpace(filterQuery)==false && string.IsNullOrWhiteSpace(filterOn) == false)
+            {
+                if(filterOn.Equals("FoodName", StringComparison.OrdinalIgnoreCase))
+                {
+                    foods = foods.Where(x => x.FoodName.Contains(filterQuery));
+                }
+            }
+
+            //Sorting----
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if(sortBy.Equals("FoodName", StringComparison.OrdinalIgnoreCase))
+                {
+                    foods = isAscending? foods.OrderBy(x=>x.FoodName) : foods.OrderByDescending(x=>x.FoodName);
+                }
+            }
+
+            //Pagination----
+
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await foods.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public async Task<Food> GetFoodByIdAsync(int id)
@@ -61,7 +86,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Update Foods Function----
+        //Update Foods Function-----------------------------------------------------
         public async Task<Food> UpdateFoodAsync(int id, Food foods)
         {
             var existingFood = await tastyTalksDbContext.Food.FirstOrDefaultAsync(x=>x.Id==id);

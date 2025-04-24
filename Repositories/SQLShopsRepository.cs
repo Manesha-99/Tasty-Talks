@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Tasty_Talks_BackEnd.Data;
 using Tasty_Talks_BackEnd.Model.Domian;
 
@@ -15,7 +16,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Create Shop Async-------
+        //Create Shop Async-------------------------------
         public async Task<Shop> CreateShopAsync(Shop shops)
         {
             await tastyTalksDbContext.Shop.AddAsync(shops);
@@ -25,7 +26,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Delete Shop Async--------
+        //Delete Shop Async-------------------------------
         public async Task<Shop> DeleteShopAsync(int id)
         {
             var shop = await tastyTalksDbContext.Shop.FirstOrDefaultAsync(x => x.Id == id);
@@ -42,7 +43,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        //Get Shop Async---------
+        //Get Shop Async----------------------------------
         public async Task<Shop> GetShopByIdAsync(int id)
         {
             var shop = await tastyTalksDbContext.Shop.FirstOrDefaultAsync(x => x.Id == id);
@@ -56,16 +57,42 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
 
-        
-        public async Task<List<Shop>> GetShopsAsync()
-        {
-            var shops = await tastyTalksDbContext.Shop.ToListAsync();
 
-            return shops;
+        public async Task<List<Shop>> GetShopsAsync(string? filterOn = null, string? filterQuery=null, 
+            string? sortBy = null, bool isAscending = true, int pageNumber=1, int pageSize=10)
+        {
+            var shop = tastyTalksDbContext.Shop.Include("User").AsQueryable();
+
+            //Filtering By ShopName----
+
+            if (string.IsNullOrWhiteSpace(filterOn)==false && string.IsNullOrWhiteSpace(filterQuery)==false)
+            {
+                if (filterOn.Equals("ShopName", StringComparison.OrdinalIgnoreCase))
+                {
+                    shop = shop.Where(x=>x.ShopName.Contains(filterQuery));
+                }
+            }
+
+            //Sorting----
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if(sortBy.Equals("ShopName", StringComparison.OrdinalIgnoreCase))
+                {
+                    shop = isAscending? shop.OrderBy(x=>x.ShopName) : shop.OrderByDescending(x=>x.ShopName);
+                }
+            }
+
+            //Pagination----
+
+            var skipResults = (pageNumber - 1) * pageSize;
+
+
+            return await shop.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
 
-        //Update Shops Function---------
+        //Update Shops Function-----------------------------
 
         public async Task<Shop> UpdateShopAsync(int id, Shop shops)
         {
