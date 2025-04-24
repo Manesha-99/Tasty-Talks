@@ -25,7 +25,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFood([FromBody] AddFoodDTO addFoodDTO)
         {
-            var foodDomainModel = mapper.Map<Foods>(addFoodDTO);
+            var foodDomainModel = mapper.Map<Food>(addFoodDTO);
 
             foodDomainModel = await foodRepository.CreateFoodAsync(foodDomainModel);
 
@@ -74,7 +74,7 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         public async Task<IActionResult> FoodUpdate(int id, [FromBody] UpdateFoodDTO updateFoodDTO)
         {
-            var foodDomainModel = mapper.Map<Foods>(updateFoodDTO);
+            var foodDomainModel = mapper.Map<Food>(updateFoodDTO);
 
             foodDomainModel = await foodRepository.UpdateFoodAsync(id, foodDomainModel);
 

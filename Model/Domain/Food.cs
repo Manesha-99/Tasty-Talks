@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tasty_Talks_BackEnd.Model.Domian
 {
-    public class Foods
+    public class Food
     {
         [Key]
         public int Id { get; set; }
@@ -12,11 +12,11 @@ namespace Tasty_Talks_BackEnd.Model.Domian
 
         public string Description { get; set; }
 
-        [ForeignKey("Shops")]
-        public int shop_Id { get; set; }
+        [ForeignKey("Shop")]
+        public int Shop_Id { get; set; }
 
-        [ForeignKey("FoodCategories")]
-        public int foodCategory_Id { get; set; }
+        [ForeignKey("FoodCategory")]
+        public int FoodCategory_Id { get; set; }
 
         public double Price { get; set; }
 
@@ -26,11 +26,13 @@ namespace Tasty_Talks_BackEnd.Model.Domian
 
         //Navigation Properties
 
-        public Shops Shops { get; set; }
-        public FoodCategory FoodCategories { get; set; }
+        public Shop Shop { get; set; }
+        public FoodCategory FoodCategory { get; set; }
 
         // Collection navigation property
-        
+
+        public ICollection<Order> Order { get; set; }
+
 
     }
 }

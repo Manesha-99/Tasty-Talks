@@ -1,8 +1,11 @@
-﻿namespace Tasty_Talks_BackEnd.Model.DTO
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Tasty_Talks_BackEnd.Model.DTO
 {
     public class AddShopsDTO
     {
-        public int UsersId { get; set; }
+        public int User_Id { get; set; }
         public string ShopName { get; set; }
 
         public string Address { get; set; }

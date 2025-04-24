@@ -12,7 +12,7 @@ using Tasty_Talks_BackEnd.Data;
 namespace Tasty_Talks_BackEnd.Migrations
 {
     [DbContext(typeof(TastyTalksDbContext))]
-    [Migration("20250423152658_Initial Migration")]
+    [Migration("20250424102651_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,47 @@ namespace Tasty_Talks_BackEnd.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Food", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Availability")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FoodCategory_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FoodName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Shop_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodCategory_Id");
+
+                    b.HasIndex("Shop_Id");
+
+                    b.ToTable("Food");
+                });
 
             modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.FoodCategory", b =>
                 {
@@ -43,10 +84,10 @@ namespace Tasty_Talks_BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FoodCategories");
+                    b.ToTable("FoodCategory");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Foods", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,40 +95,40 @@ namespace Tasty_Talks_BackEnd.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Availability")
-                        .HasColumnType("bit");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FoodName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Food_Id")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("foodCategory_Id")
+                    b.Property<string>("Progress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("shop_Id")
+                    b.Property<int>("Shop_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("foodCategory_Id");
+                    b.HasIndex("Food_Id");
 
-                    b.HasIndex("shop_Id");
+                    b.HasIndex("Shop_Id");
 
-                    b.ToTable("Foods");
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shops", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,17 +166,17 @@ namespace Tasty_Talks_BackEnd.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int>("User_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("User_Id");
 
-                    b.ToTable("Shops");
+                    b.ToTable("Shop");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Users", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,52 +202,88 @@ namespace Tasty_Talks_BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Foods", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Food", b =>
                 {
-                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.FoodCategory", "FoodCategories")
-                        .WithMany("Foods")
-                        .HasForeignKey("foodCategory_Id")
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.FoodCategory", "FoodCategory")
+                        .WithMany("Food")
+                        .HasForeignKey("FoodCategory_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.Shops", "Shops")
-                        .WithMany("Foods")
-                        .HasForeignKey("shop_Id")
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.Shop", "Shop")
+                        .WithMany("Food")
+                        .HasForeignKey("Shop_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FoodCategories");
+                    b.Navigation("FoodCategory");
 
-                    b.Navigation("Shops");
+                    b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shops", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Order", b =>
                 {
-                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.Users", "Users")
-                        .WithMany("Shops")
-                        .HasForeignKey("UsersId")
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.Food", "Food")
+                        .WithMany("Order")
+                        .HasForeignKey("Food_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.Shop", "Shop")
+                        .WithMany("Order")
+                        .HasForeignKey("Shop_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.User", "User")
+                        .WithMany("Order")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Shop");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shop", b =>
+                {
+                    b.HasOne("Tasty_Talks_BackEnd.Model.Domian.User", "User")
+                        .WithMany("Shop")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Food", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.FoodCategory", b =>
                 {
-                    b.Navigation("Foods");
+                    b.Navigation("Food");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shops", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Shop", b =>
                 {
-                    b.Navigation("Foods");
+                    b.Navigation("Food");
+
+                    b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.Users", b =>
+            modelBuilder.Entity("Tasty_Talks_BackEnd.Model.Domian.User", b =>
                 {
-                    b.Navigation("Shops");
+                    b.Navigation("Order");
+
+                    b.Navigation("Shop");
                 });
 #pragma warning restore 612, 618
         }

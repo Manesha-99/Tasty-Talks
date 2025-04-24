@@ -12,7 +12,7 @@ namespace Tasty_Talks_BackEnd.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FoodCategories",
+                name: "FoodCategory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,11 +22,11 @@ namespace Tasty_Talks_BackEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FoodCategories", x => x.Id);
+                    table.PrimaryKey("PK_FoodCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -38,16 +38,16 @@ namespace Tasty_Talks_BackEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shops",
+                name: "Shop",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UsersId = table.Column<int>(type: "int", nullable: false),
+                    User_Id = table.Column<int>(type: "int", nullable: false),
                     ShopName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -59,76 +59,131 @@ namespace Tasty_Talks_BackEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shops", x => x.Id);
+                    table.PrimaryKey("PK_Shop", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Shops_Users_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "Users",
+                        name: "FK_Shop_User_User_Id",
+                        column: x => x.User_Id,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Foods",
+                name: "Food",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    shop_Id = table.Column<int>(type: "int", nullable: false),
-                    foodCategory_Id = table.Column<int>(type: "int", nullable: false),
+                    Shop_Id = table.Column<int>(type: "int", nullable: false),
+                    FoodCategory_Id = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Availability = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Foods", x => x.Id);
+                    table.PrimaryKey("PK_Food", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Foods_FoodCategories_foodCategory_Id",
-                        column: x => x.foodCategory_Id,
-                        principalTable: "FoodCategories",
+                        name: "FK_Food_FoodCategory_FoodCategory_Id",
+                        column: x => x.FoodCategory_Id,
+                        principalTable: "FoodCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Foods_Shops_shop_Id",
-                        column: x => x.shop_Id,
-                        principalTable: "Shops",
+                        name: "FK_Food_Shop_Shop_Id",
+                        column: x => x.Shop_Id,
+                        principalTable: "Shop",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User_Id = table.Column<int>(type: "int", nullable: false),
+                    Shop_Id = table.Column<int>(type: "int", nullable: false),
+                    Food_Id = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Progress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_Food_Food_Id",
+                        column: x => x.Food_Id,
+                        principalTable: "Food",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_Shop_Shop_Id",
+                        column: x => x.Shop_Id,
+                        principalTable: "Shop",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_User_User_Id",
+                        column: x => x.User_Id,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foods_foodCategory_Id",
-                table: "Foods",
-                column: "foodCategory_Id");
+                name: "IX_Food_FoodCategory_Id",
+                table: "Food",
+                column: "FoodCategory_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foods_shop_Id",
-                table: "Foods",
-                column: "shop_Id");
+                name: "IX_Food_Shop_Id",
+                table: "Food",
+                column: "Shop_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shops_UsersId",
-                table: "Shops",
-                column: "UsersId");
+                name: "IX_Order_Food_Id",
+                table: "Order",
+                column: "Food_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_Shop_Id",
+                table: "Order",
+                column: "Shop_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_User_Id",
+                table: "Order",
+                column: "User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shop_User_Id",
+                table: "Shop",
+                column: "User_Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Foods");
+                name: "Order");
 
             migrationBuilder.DropTable(
-                name: "FoodCategories");
+                name: "Food");
 
             migrationBuilder.DropTable(
-                name: "Shops");
+                name: "FoodCategory");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Shop");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

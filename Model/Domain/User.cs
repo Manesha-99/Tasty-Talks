@@ -2,7 +2,7 @@
 
 namespace Tasty_Talks_BackEnd.Model.Domian
 {
-    public class Users
+    public class User
     {
         [Key]
         public int Id { get; set; }
@@ -17,7 +17,8 @@ namespace Tasty_Talks_BackEnd.Model.Domian
 
         // Collection navigation property
 
-        public ICollection<Shops> Shops { get; set; }
+        public ICollection<Shop> Shop { get; set; }
+        public ICollection<Order> Order { get; set; }
        
     }
 }

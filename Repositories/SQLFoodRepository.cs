@@ -15,9 +15,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Create Food Function-----
-        public async Task<Foods> CreateFoodAsync(Foods foods)
+        public async Task<Food> CreateFoodAsync(Food foods)
         {
-            var food = await tastyTalksDbContext.Foods.AddAsync(foods);
+            var food = await tastyTalksDbContext.Food.AddAsync(foods);
 
             await tastyTalksDbContext.SaveChangesAsync();
 
@@ -26,15 +26,15 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
         //Delete Food Function----
-        public async Task<Foods> DeleteFoodAsync(int id)
+        public async Task<Food> DeleteFoodAsync(int id)
         {
-            var food = await tastyTalksDbContext.Foods.FirstOrDefaultAsync(x => x.Id == id);
+            var food = await tastyTalksDbContext.Food.FirstOrDefaultAsync(x => x.Id == id);
             if (food == null) 
             {
                 return null;
             }
 
-            tastyTalksDbContext.Foods.Remove(food);
+            tastyTalksDbContext.Food.Remove(food);
             await tastyTalksDbContext.SaveChangesAsync() ;
 
             return food;
@@ -42,16 +42,16 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
         //Read Food Function-----
-        public async Task<List<Foods>> GetAllFoodsAsync()
+        public async Task<List<Food>> GetAllFoodsAsync()
         {
-            var foods = await tastyTalksDbContext.Foods.ToListAsync();
+            var foods = await tastyTalksDbContext.Food.ToListAsync();
 
             return foods;
         }
 
-        public async Task<Foods> GetFoodByIdAsync(int id)
+        public async Task<Food> GetFoodByIdAsync(int id)
         {
-            var food = await tastyTalksDbContext.Foods.FirstOrDefaultAsync(x=>x.Id==id);
+            var food = await tastyTalksDbContext.Food.FirstOrDefaultAsync(x=>x.Id==id);
 
             if (food == null) {
                 return null;
@@ -62,9 +62,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Update Foods Function----
-        public async Task<Foods> UpdateFoodAsync(int id, Foods foods)
+        public async Task<Food> UpdateFoodAsync(int id, Food foods)
         {
-            var existingFood = await tastyTalksDbContext.Foods.FirstOrDefaultAsync(x=>x.Id==id);
+            var existingFood = await tastyTalksDbContext.Food.FirstOrDefaultAsync(x=>x.Id==id);
 
             if (existingFood == null)
             {
@@ -76,8 +76,8 @@ namespace Tasty_Talks_BackEnd.Repositories
             existingFood.Price = foods.Price;
             existingFood.ImageURL = foods.ImageURL;
             existingFood.Availability = foods.Availability;
-            existingFood.shop_Id = foods.shop_Id;
-            existingFood.foodCategory_Id = foods.foodCategory_Id;
+            existingFood.Shop_Id = foods.Shop_Id;
+            existingFood.FoodCategory_Id = foods.FoodCategory_Id;
 
             await tastyTalksDbContext.SaveChangesAsync();
 

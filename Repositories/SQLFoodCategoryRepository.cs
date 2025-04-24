@@ -17,7 +17,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         //Create FoodCategory Function----
         public async Task<FoodCategory> CreateAsync(FoodCategory foodCategory)
         {
-            await tastyTalksDbContext.FoodCategories.AddAsync(foodCategory);
+            await tastyTalksDbContext.FoodCategory.AddAsync(foodCategory);
             await tastyTalksDbContext.SaveChangesAsync();
 
             return foodCategory;
@@ -26,7 +26,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         //Delete FoodCategory Function----
         public async Task<FoodCategory> DeleteAsync(int id)
         {
-            var food = await tastyTalksDbContext.FoodCategories.FirstOrDefaultAsync(x => x.Id == id);
+            var food = await tastyTalksDbContext.FoodCategory.FirstOrDefaultAsync(x => x.Id == id);
             if (food == null) {
 
                 return null;
@@ -43,7 +43,7 @@ namespace Tasty_Talks_BackEnd.Repositories
 
         public async Task<FoodCategory> GeByIdAsync(int id)
         {
-            var food = await tastyTalksDbContext.FoodCategories.FirstOrDefaultAsync(x => x.Id == id);
+            var food = await tastyTalksDbContext.FoodCategory.FirstOrDefaultAsync(x => x.Id == id);
 
             if(food == null)
             {
@@ -56,7 +56,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         
         public async Task<List<FoodCategory>> GetAllAsync()
         {
-            var foods = await tastyTalksDbContext.FoodCategories.ToListAsync();
+            var foods = await tastyTalksDbContext.FoodCategory.ToListAsync();
 
             if(foods == null)
             {
@@ -70,7 +70,7 @@ namespace Tasty_Talks_BackEnd.Repositories
         //Update FoodCategory Function----
         public async Task<FoodCategory> UpdateAsync(int id, FoodCategory foodCategory)
         {
-            var existingFood = await tastyTalksDbContext.FoodCategories.FirstOrDefaultAsync(x=>x.Id==id);
+            var existingFood = await tastyTalksDbContext.FoodCategory.FirstOrDefaultAsync(x=>x.Id==id);
 
             if (existingFood == null) {
                 return null;

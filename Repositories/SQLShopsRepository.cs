@@ -16,9 +16,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Create Shop Async-------
-        public async Task<Shops> CreateShopAsync(Shops shops)
+        public async Task<Shop> CreateShopAsync(Shop shops)
         {
-            await tastyTalksDbContext.Shops.AddAsync(shops);
+            await tastyTalksDbContext.Shop.AddAsync(shops);
             await tastyTalksDbContext.SaveChangesAsync();
 
             return shops;
@@ -26,16 +26,16 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Delete Shop Async--------
-        public async Task<Shops> DeleteShopAsync(int id)
+        public async Task<Shop> DeleteShopAsync(int id)
         {
-            var shop = await tastyTalksDbContext.Shops.FirstOrDefaultAsync(x => x.Id == id);
+            var shop = await tastyTalksDbContext.Shop.FirstOrDefaultAsync(x => x.Id == id);
 
             if (shop == null) {
 
                 return null;
             }
 
-            tastyTalksDbContext.Shops.Remove(shop);
+            tastyTalksDbContext.Shop.Remove(shop);
             await tastyTalksDbContext.SaveChangesAsync();
 
             return shop;
@@ -43,9 +43,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Get Shop Async---------
-        public async Task<Shops> GetShopByIdAsync(int id)
+        public async Task<Shop> GetShopByIdAsync(int id)
         {
-            var shop = await tastyTalksDbContext.Shops.FirstOrDefaultAsync(x => x.Id == id);
+            var shop = await tastyTalksDbContext.Shop.FirstOrDefaultAsync(x => x.Id == id);
 
             if (shop == null) {
 
@@ -57,9 +57,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         
-        public async Task<List<Shops>> GetShopsAsync()
+        public async Task<List<Shop>> GetShopsAsync()
         {
-            var shops = await tastyTalksDbContext.Shops.ToListAsync();
+            var shops = await tastyTalksDbContext.Shop.ToListAsync();
 
             return shops;
         }
@@ -67,9 +67,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
         //Update Shops Function---------
 
-        public async Task<Shops> UpdateShopAsync(int id, Shops shops)
+        public async Task<Shop> UpdateShopAsync(int id, Shop shops)
         {
-            var existingModel = await tastyTalksDbContext.Shops.FirstOrDefaultAsync(x=>x.Id== id);
+            var existingModel = await tastyTalksDbContext.Shop.FirstOrDefaultAsync(x=>x.Id== id);
 
             if (existingModel == null) {
 

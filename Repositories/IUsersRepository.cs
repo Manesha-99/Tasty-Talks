@@ -4,13 +4,13 @@ namespace Tasty_Talks_BackEnd.Repositories
 {
     public interface IUsersRepository
     {
-        Task<Users> CreateuserAsync(Users users);
-        Task<List<Users>> GetUsersAsync();
+        Task<User> CreateuserAsync(User users);
+        Task<List<User>> GetUsersAsync();
 
-        Task<Users> GetUserByIdAsync(int id);
+        Task<User> GetUserByIdAsync(int id);
 
-        Task<Users> UpdateUserAsync(int id, Users users);
+        Task<User> UpdateUserAsync(int id, User users);
 
-        Task<Users> DeleteUserAsync(int id);  
+        Task<User> DeleteUserAsync(int id);  
     }
 }

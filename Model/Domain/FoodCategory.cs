@@ -9,7 +9,7 @@
 
 
         // Collection navigation property
-        public ICollection<Foods> Foods { get; set; }
+        public ICollection<Food> Food { get; set; }
         
     }
 }

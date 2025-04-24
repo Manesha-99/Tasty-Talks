@@ -4,13 +4,13 @@ namespace Tasty_Talks_BackEnd.Repositories
 {
     public interface IShopsRepository
     {
-        Task<Shops> CreateShopAsync(Shops shops);
-        Task<List<Shops>> GetShopsAsync();
+        Task<Shop> CreateShopAsync(Shop shops);
+        Task<List<Shop>> GetShopsAsync();
 
-        Task<Shops> GetShopByIdAsync(int id);
+        Task<Shop> GetShopByIdAsync(int id);
 
-        Task<Shops> UpdateShopAsync(int id, Shops shops);
+        Task<Shop> UpdateShopAsync(int id, Shop shops);
         
-        Task<Shops> DeleteShopAsync(int id);
+        Task<Shop> DeleteShopAsync(int id);
     }
 }

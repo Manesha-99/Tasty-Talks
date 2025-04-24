@@ -11,11 +11,17 @@ namespace Tasty_Talks_BackEnd.Data
 
         }
         
-        public DbSet<Shops> Shops { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<FoodCategory> FoodCategories { get; set; }
-        public DbSet<Foods> Foods { get; set; }
-            
+        public DbSet<Shop> Shop { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<FoodCategory> FoodCategory { get; set; }
+        public DbSet<Food> Food { get; set; }
+        public DbSet<Order> Order { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
+
     }
+}
 

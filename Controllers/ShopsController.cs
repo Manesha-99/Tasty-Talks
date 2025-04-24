@@ -27,7 +27,7 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         public async Task<IActionResult> CreateShop([FromBody] AddShopsDTO addShopsDTO)
         {
-            var shopsDomainModel = mapper.Map<Shops>(addShopsDTO);
+            var shopsDomainModel = mapper.Map<Shop>(addShopsDTO);
 
             shopsDomainModel = await shopsRepository.CreateShopAsync(shopsDomainModel);
 
@@ -79,7 +79,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         [Route("id")]
         public async Task<IActionResult> UpdateShop([FromQuery] int id , [FromBody] UpdateShopDTO updateShopDTO)
         {
-            var shopDomainModel = mapper.Map<Shops>(updateShopDTO);
+            var shopDomainModel = mapper.Map<Shop>(updateShopDTO);
 
             shopDomainModel = await shopsRepository.UpdateShopAsync(id, shopDomainModel);
 

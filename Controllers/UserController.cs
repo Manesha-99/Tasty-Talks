@@ -27,7 +27,7 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         public async Task<IActionResult> CreateUser([FromBody] AddUserDTO addUserDTO)
         {
-            var userDomainModel = mapper.Map<Users>(addUserDTO);
+            var userDomainModel = mapper.Map<User>(addUserDTO);
 
             userDomainModel = await usersRepository.CreateuserAsync(userDomainModel);
 
@@ -75,7 +75,7 @@ namespace Tasty_Talks_BackEnd.Controllers
 
         public async Task<IActionResult> UpdateUser([FromQuery] int id, [FromBody] UpdateUserDTO updateUserDTO)
         {
-            var userDomainModel = mapper.Map<Users>(updateUserDTO);
+            var userDomainModel = mapper.Map<User>(updateUserDTO);
 
             userDomainModel = await usersRepository.UpdateUserAsync(id, userDomainModel);
 

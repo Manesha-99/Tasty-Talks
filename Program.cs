@@ -22,6 +22,7 @@ builder.Services.AddScoped<IShopsRepository, SQLShopsRepository>();
 builder.Services.AddScoped<IUsersRepository, SQLUsersRepository>();
 builder.Services.AddScoped<IFoodCategoryRepository, SQLFoodCategoryRepository>();
 builder.Services.AddScoped<IFoodRepository, SQLFoodRepository>();
+builder.Services.AddScoped<IOrderRepository, SQLOrderRepository>();
 
 var app = builder.Build();
 

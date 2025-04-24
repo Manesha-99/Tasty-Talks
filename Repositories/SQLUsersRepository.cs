@@ -14,9 +14,9 @@ namespace Tasty_Talks_BackEnd.Repositories
         }
 
         //Create a USER----------
-        public async Task<Users> CreateuserAsync(Users users)
+        public async Task<User> CreateuserAsync(User users)
         {
-            await tastyTalksDbContext.Users.AddAsync(users);
+            await tastyTalksDbContext.User.AddAsync(users);
             await tastyTalksDbContext.SaveChangesAsync();
 
             return users;
@@ -24,15 +24,15 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Delete User Function----------
-        public async Task<Users> DeleteUserAsync(int id)
+        public async Task<User> DeleteUserAsync(int id)
         {
-            var user = await tastyTalksDbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await tastyTalksDbContext.User.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null) {
 
                 return null;
             }
 
-            tastyTalksDbContext.Users.Remove(user);
+            tastyTalksDbContext.User.Remove(user);
             await tastyTalksDbContext.SaveChangesAsync();
             
             return user;
@@ -40,9 +40,9 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         //Get USERS--------------
-        public async Task<Users> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            var user = await tastyTalksDbContext.Users.FirstOrDefaultAsync(x=>x.Id==id);
+            var user = await tastyTalksDbContext.User.FirstOrDefaultAsync(x=>x.Id==id);
 
             if (user == null) {
                 return null;
@@ -53,18 +53,18 @@ namespace Tasty_Talks_BackEnd.Repositories
 
 
         
-        public async Task<List<Users>> GetUsersAsync()
+        public async Task<List<User>> GetUsersAsync()
         {
-            var users = await tastyTalksDbContext.Users.ToListAsync();
+            var users = await tastyTalksDbContext.User.ToListAsync();
 
             return users;
         }
 
 
         //Update User Function----------
-        public async Task<Users> UpdateUserAsync(int id, Users users)
+        public async Task<User> UpdateUserAsync(int id, User users)
         {
-            var existingUser = await tastyTalksDbContext.Users.FirstOrDefaultAsync(x=>x.Id==id);
+            var existingUser = await tastyTalksDbContext.User.FirstOrDefaultAsync(x=>x.Id==id);
 
             if (existingUser == null) {
 

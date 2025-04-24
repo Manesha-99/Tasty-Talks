@@ -1,4 +1,6 @@
-﻿using Tasty_Talks_BackEnd.Model.Domian;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using Tasty_Talks_BackEnd.Model.Domian;
 
 namespace Tasty_Talks_BackEnd.Model.DTO
 {
@@ -6,7 +8,7 @@ namespace Tasty_Talks_BackEnd.Model.DTO
     {
         public int Id { get; set; }
 
-        public int UsersId { get; set; }
+        public int User_Id { get; set; }
         public string ShopName { get; set; }
 
         public string Address { get; set; }
@@ -22,7 +24,5 @@ namespace Tasty_Talks_BackEnd.Model.DTO
         public string ImageUrl { get; set; }
 
         public DateTime CreatedAt { get; set; }
-
-       // public Users Users { get; set; }
     }
 }

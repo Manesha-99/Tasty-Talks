@@ -8,18 +8,21 @@ namespace Tasty_Talks_BackEnd.Mapping
     {
         public AutoMapperProfile()
         {
-            CreateMap<Shops, AddShopsDTO>().ReverseMap();
-            CreateMap<Users, AddUserDTO>().ReverseMap();
-            CreateMap<Shops, ShopsDTO>().ReverseMap();
-            CreateMap<Users, UsersDTO>().ReverseMap();
-            CreateMap<Shops, UpdateShopDTO>().ReverseMap();
-            CreateMap<Users, UpdateUserDTO>().ReverseMap();
+            CreateMap<Shop, AddShopsDTO>().ReverseMap();
+            CreateMap<User, AddUserDTO>().ReverseMap();
+            CreateMap<Shop, ShopsDTO>().ReverseMap();
+            CreateMap<User, UsersDTO>().ReverseMap();
+            CreateMap<Shop, UpdateShopDTO>().ReverseMap();
+            CreateMap<User, UpdateUserDTO>().ReverseMap();
             CreateMap<FoodCategory, AddFoodCategoryDTO>().ReverseMap();
             CreateMap<FoodCategory, FoodCategoryDTO>().ReverseMap();
             CreateMap<FoodCategory, UpdateFoodCategoryDTO>().ReverseMap();
-            CreateMap<Foods, AddFoodDTO>().ReverseMap();
-            CreateMap<Foods, FoodDTO>().ReverseMap();
-            CreateMap<Foods, UpdateFoodDTO>().ReverseMap();
+            CreateMap<Food, AddFoodDTO>().ReverseMap();
+            CreateMap<Food, FoodDTO>().ReverseMap();
+            CreateMap<Food, UpdateFoodDTO>().ReverseMap();
+            CreateMap<Order,  AddOrderDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<Order, UpdateOrderDTO>().ReverseMap();
         }
     }
 }
