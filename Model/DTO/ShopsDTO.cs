@@ -24,5 +24,7 @@ namespace Tasty_Talks_BackEnd.Model.DTO
         public string ImageUrl { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public UsersDTO User { get; set; }
     }
 }

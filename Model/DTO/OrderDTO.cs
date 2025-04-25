@@ -19,5 +19,9 @@ namespace Tasty_Talks_BackEnd.Model.DTO
         public string Progress { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public ShopsDTO Shop { get; set; }
+
+        public UsersDTO User { get; set; }
     }
 }

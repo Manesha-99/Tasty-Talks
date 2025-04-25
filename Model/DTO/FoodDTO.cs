@@ -17,5 +17,7 @@ namespace Tasty_Talks_BackEnd.Model.DTO
         public string ImageURL { get; set; }
 
         public bool Availability { get; set; }
+
+        public FoodCategoryDTO FoodCategory { get; set; }
     }
 }
