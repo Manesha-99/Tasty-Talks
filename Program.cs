@@ -63,6 +63,7 @@ builder.Services.AddScoped<IFoodCategoryRepository, SQLFoodCategoryRepository>()
 builder.Services.AddScoped<IFoodRepository, SQLFoodRepository>();
 builder.Services.AddScoped<IOrderRepository, SQLOrderRepository>();
 builder.Services.AddScoped<IImageRepository, SQLImageRepository>();
+builder.Services.AddScoped<ITokenRepository, SQLTokenRepository>();
 
 var app = builder.Build();
 

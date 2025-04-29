@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tasty_Talks_BackEnd.Model.Domian;
@@ -41,6 +42,7 @@ namespace Tasty_Talks_BackEnd.Controllers
         //Read Food Function-----------------------------------------------------
 
         [HttpGet]
+        [Authorize(Roles ="Customer")]
         public async Task<IActionResult> GetAllFood([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool isAscending=true, 
             [FromQuery] int pageNumber=1, [FromQuery] int pageSize=10)

@@ -21,6 +21,6 @@ namespace Tasty_Talks_BackEnd.Model.DTO
         public string PhoneNumber { get; set; }
 
         [Required]
-        public string Role { get; set; }
+        public string [] Roles { get; set; }
     }
 }
